@@ -26,6 +26,10 @@ public class HttpServlet {
         //读取头部
         BufferedReader br  = new BufferedReader(new InputStreamReader(is));
         String line = br.readLine();
+        logger.info("第一行为：{}",line);
+        if (line == null) {
+            return;
+        }
         // < Method > < URL > < HTTP Version > <\r\n>  取的是URL部分
         String resource = line.substring(line.indexOf('/'), line
                 .lastIndexOf('/') - 5);
@@ -33,12 +37,31 @@ public class HttpServlet {
         resource = URLDecoder.decode(resource, "utf-8");//反编码 URL 地址
         String method = new StringTokenizer(line).nextElement()
                 .toString();// 获取请求方法, GET 或者 POST
+        logger.info("http访问的方法为：{}", method);
         if ("get".equals(method.toLowerCase())) {
             //get方式
+            line = br.readLine();
+            while (line != null && !"".equals(line)) {
+                logger.info(line);
+                line = br.readLine();
+            }
+            logger.info("头部访问结束.............");
         } else {
             //其他方式
         }
 
+        StringBuffer sb = new StringBuffer();
+        sb.append("HTTP/1.1 200 OK\r\n");
+        sb.append("Server: Apache/1.2.6\r\n");
+        sb.append("Date: Tue, 14 Sep 1999 02:19:57 GMT\r\n");
+        sb.append("Content-Type: text/html\r\n");
+        sb.append("\r\n");
+        sb.append("<html><head><title>test</title></head><body>test</body></html>\r\n");
+        os.write(sb.toString().getBytes());
+        logger.info(sb.toString());
+        os.flush();
+        logger.info("{} request is over ..........................", name);
+/*
         int c = 0;
         int crlfNum = 0;
         List<Byte> temps = new ArrayList<Byte>();
@@ -48,7 +71,7 @@ public class HttpServlet {
                 crlfNum ++;
                 if (crlfNum == 4) {
                     crlfNum = 0;
-//                    logger.info("{} header is over..........................",name);
+
                 } else {
                     if (temps.size() > 0) {
                         byte[] bytes = new byte[temps.size()];
@@ -62,18 +85,8 @@ public class HttpServlet {
             } else {
                 temps.add((byte)c);
             }
-        }
-        StringBuffer sb = new StringBuffer();
-        sb.append("HTTP/1.1 200 OK\r\n");
-        sb.append("Server: Apache/1.2.6\r\n");
-        sb.append("Date: Tue, 14 Sep 1999 02:19:57 GMT\r\n");
-        sb.append("Content-Type: text/html\r\n");
-        sb.append("\r\n");
-        sb.append("<html><head><title>test</title></head><body>test</body></html>\r\n");
-        os.write(sb.toString().getBytes());
-        logger.info(sb.toString());
-        os.flush();
-        logger.info("{} request is over ..........................", name);
+        }*/
+
 //        BufferedReader br = new BufferedReader(new InputStreamReader(is));
       /*  String line = "";
         int num = 0;
