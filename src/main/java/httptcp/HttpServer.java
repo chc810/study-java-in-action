@@ -49,7 +49,7 @@ public class HttpServer {
         }
     }
 
-    final class SocketHandler implements Runnable {
+    final class SocketHandler extends Thread {
         private Socket socket;
 
         public SocketHandler(Socket socket) {
@@ -61,7 +61,7 @@ public class HttpServer {
             try {
                 is = socket.getInputStream();
                 os = socket.getOutputStream();
-                httpServlet.service(is,os);
+                httpServlet.service(is,os,String.valueOf( Math.random() * 100));
             } catch (IOException e) {
                 e.printStackTrace();
             } finally {
