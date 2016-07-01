@@ -63,6 +63,7 @@ public class HttpServlet1 extends AbstractHttpServlet {
                 sb.append("Server: Apache/1.2.6\r\n");
                 sb.append("Date: Tue, 14 Sep 1999 02:19:57 GMT\r\n");
                 sb.append("Content-Type: text/html\r\n");
+                sb.append("Connection: keep-alive\r\n");
                 sb.append("\r\n");
                 sb.append("<html><head><title>test</title></head><body>test</body></html>\r\n");
                 os.write(sb.toString().getBytes());
