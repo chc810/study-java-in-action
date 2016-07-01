@@ -20,11 +20,11 @@ public class HttpServer {
 
     private ServerSocket serverSocket;
 
-    private HttpServlet httpServlet;
+    private AbstractHttpServlet httpServlet;
 
     private static final ExecutorService pool = Executors.newCachedThreadPool();
 
-    public HttpServer(HttpServlet httpServlet, int port) {
+    public HttpServer(AbstractHttpServlet httpServlet, int port) {
         try {
             this.httpServlet = httpServlet;
             this.serverSocket = new ServerSocket(port);
@@ -61,8 +61,8 @@ public class HttpServer {
             try {
                 is = socket.getInputStream();
                 os = socket.getOutputStream();
-                httpServlet.service(is,os,String.valueOf( Math.random() * 100));
-            } catch (IOException e) {
+                httpServlet.service(socket, is,os,String.valueOf( Math.random() * 100));
+            } catch (Exception e) {
                 e.printStackTrace();
             } finally {
                 try {
