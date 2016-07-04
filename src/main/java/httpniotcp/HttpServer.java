@@ -80,9 +80,10 @@ public class HttpServer {
                             sb.append("Date: Tue, 14 Sep 1999 02:19:57 GMT\r\n");
                             sb.append("Content-Type: text/html\r\n");
                             sb.append("\r\n");
-                            sb.append("<html><head><title>test</title></head><body>test</body></html>\r\n");
+                            sb.append("<html><head><title>testweqdqwedqweqweqweqweqwe</title></head><body>test</body></html>\r\n");
+//                            byteBuffer.flip();
+                            byteBuffer.put(sb.toString().getBytes(),0,sb.toString().getBytes().length);
                             byteBuffer.flip();
-                            byteBuffer.put(sb.toString().getBytes());
                             socketChannel.write(byteBuffer);
                             //注意需要关闭
                             socketChannel.close();
