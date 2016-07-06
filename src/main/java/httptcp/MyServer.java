@@ -7,7 +7,7 @@ public class MyServer {
 
     public static void main(String[] args) {
 //        AbstractHttpServlet servlet = new HttpServlet();
-        AbstractHttpServlet servlet = new HttpServlet1();
+        AbstractHttpServlet servlet = new HttpServlet2();
         HttpServer server = new HttpServer(servlet,30000);
         server.start();
     }
